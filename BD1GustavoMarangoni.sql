@@ -37,3 +37,59 @@ id INT NOT NULL AUTO_INCREMENT
 ,CONSTRAINT cidade_unica UNIQUE(nome, estado_id)
 );
 
+ALTER TABLE cliente ADD COLUMN telefone VARCHAR(200);
+ALTER TABLE cliente MODIFY COLUMN telefone INT;
+ALTER TABLE cliente MODIFY COLUMN telefone INT NOT NULL DEFAULT 'VALOR NÂO INFORMADO' FIRST;
+ALTER TABLE cliente MODIFY COLUMN telefone INT NOT NULL DEFAULT 'VALOR NÂO INFORMADO' AFTER endereco;
+
+ALTER TABLE cliente DROP COLUMN telefone;
+
+SELECT * FROM cliente;
+DESC cliente;
+
+
+SELECT *
+FROM estado
+JOIN cidade ON cliente.estado_id = estado.id;
+
+SELECT 	*
+FROM estado, cliente
+WHERE cliente.estado_id = estado.id;
+
+SELECT *
+FROM estado
+JOIN cliente ON cliente.estado_id = estado.id;
+
+
+
+SELECT 	
+	cliente.id 'ID CIDADE'
+    ,cliente.nome 'NOME CIDADE'
+    ,estado.sigla 'SIGLA ESTADO'
+FROM estado, cidade
+WHERE cliente.estado_id = estado.id;
+
+-- SQL 92
+SELECT 
+	cliente.id 'ID CIDADE'
+    ,cliente.nome 'NOME CIDADE'
+    ,estado.sigla 'SIGLA ESTADO'
+FROM estado
+JOIN cliente ON cliente.estado_id = estado.id;
+
+
+SELECT 	
+	cliente.id 'ID CIDADE'
+    ,cliente.nome 'NOME CIDADE'
+    ,estado.sigla 'SIGLA ESTADO'
+FROM estado, cidade
+WHERE cliente.estado_id = estado.id
+	AND estado.nome = 'PARANÁ';
+
+SELECT 
+	cliente.id 'ID CIDADE'
+    ,cliente.nome 'NOME CIDADE'
+    ,estado.sigla 'SIGLA ESTADO'
+FROM estado
+JOIN cliente ON cliente.estado_id = estado.id 
+WHERE estado.nome = 'PARANÁ';
