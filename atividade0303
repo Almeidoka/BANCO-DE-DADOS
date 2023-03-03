@@ -1,0 +1,58 @@
+DROP DATABASE IF EXISTS aulabd2;
+CREATE DATABASE aulabd2;
+USE aulabd2;
+
+
+CREATE TABLE clientes (
+  id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(255) NOT NULL,
+  whatsapp VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE servicos (
+  id_servico INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nome_servico VARCHAR(255) NOT NULL,
+  valor_servico VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE servico_por_cliente (
+  id_cliente INTEGER NOT NULL,
+  id_servico INTEGER NOT NULL,
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+  FOREIGN KEY (id_servico) REFERENCES servicos(id_servico)
+);
+
+
+INSERT INTO clientes (nome, whatsapp) VALUES
+('Gustavo ', '16991951038'),
+('Maria ', '34991382649'),
+('Pedro ', '44991951039'),
+('Ana ', '11991952838'),
+('Lucas ', '12991962829');
+
+
+INSERT INTO servicos (nome_servico, valor_servico) VALUES
+('Formatacao de computador', '100.00'),
+('limpeza de cpu', '150.00'),
+('troca de HD', '200.00'),
+('restauração de arquivos', '300.00'),
+('troca de processador', '500.00');
+
+-- SELECT * FROM cliente WHERE id_servico_cliente = id_servico AND id_servico_cliente = id_cliente
+
+SELECT nome,nome_servico,valor_servico FROM clientes, servicos WHERE id_cliente = id_servico;
+
+
+
+
+ALTER TABLE clientes ADD COLUMN cpf VARCHAR(11);
+ALTER TABLE servico_por_cliente ADD COLUMN data_servico DATE;
+ALTER TABLE servicos MODIFY COLUMN valor_servico  DECIMAL NOT NULL DEFAULT 0.00;
+
+ALTER TABLE clientes MODIFY COLUMN whatsapp VARCHAR(16);
+
+-- Os comandos DDL foram utilizados para criar e alterar as tabelas(CREAT TABLE, ALTER TABLE)
+-- já os comandos DML foram ultilizados para consultar e inserir dados nas tabelas já existentes(SELECT, INSERT)
+
+
+
